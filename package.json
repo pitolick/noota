@@ -1,0 +1,24 @@
+{
+  "name": "noota",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pitolick/noota.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pitolick/noota/issues"
+  },
+  "homepage": "https://github.com/pitolick/noota#readme",
+
+  "scripts": {
+    "sass:watch": "sass --style=compressed --watch src/scss:css",
+    "watch": "npm run sass:watch"
+  },
+  "devDependencies": {
+    "sass": "^1.26.10"
+  }
+}
