@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html lang="ja">
 
 <head>
-	<meta
-		charset="<?php bloginfo('charset'); ?>" />
+	<meta charset="<?php bloginfo('charset'); ?>" />
 	<meta name="viewport" content="width=device-width" />
 	<?php wp_head(); ?>
 </head>
@@ -22,8 +21,6 @@
 					<?php if (is_front_page() || is_home() || is_front_page() && is_home()) {
 							echo '</h1>';
 					} ?>
-				</div>
-				<div id="site-description"><?php bloginfo('description'); ?>
 				</div>
 			</div>
 			<nav id="menu">
