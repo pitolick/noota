@@ -1,0 +1,12 @@
+@charset "UTF-8";
+@use 'variables';
+/**
+ * オリジナルのmixinや関数を記述するファイル
+ */
+
+
+@mixin mq-down($breakpoint: md) {
+  @media #{map-get(variables.$breakpoint-down, $breakpoint)} {
+    @content;
+  }
+}

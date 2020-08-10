@@ -1,0 +1,68 @@
+@charset "UTF-8";
+@use 'modules/utilities';
+@use 'modules/variables';
+/* -------------------------------------------------------------------------- */
+
+/*	初期設定
+/* -------------------------------------------------------------------------- */
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+	font-size: 1.4rem;
+	color: #333;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+
+/*	共通パーツ
+/* -------------------------------------------------------------------------- */
+
+/* Layout ---------------------------------- */
+#container {
+	max-width: variables.$BASE_WIDTH + variables.$GUTTER_HALF_WIDTH * 2;
+	padding-left: variables.$GUTTER_HALF_WIDTH;
+	padding-right: variables.$GUTTER_HALF_WIDTH;
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	grid-template-columns: 80px 1fr 300px;
+}
+
+#content {
+	grid-column: 2/3;
+	&:first-child {
+		grid-column: 1/3;
+	}
+}
+
+
+#sidebar {
+	grid-column: 3/4;
+}
+
+@include utilities.mq-down(xl) {
+	#content {
+		&,&:first-child {
+			grid-column: 1/3;
+		}
+	}
+}
+
+@include utilities.mq-down(lg) {
+	#content {
+		&,&:first-child {
+			grid-column: 1/4;
+		}
+	}
+
+	#sidebar {
+		display: none;
+	}
+}
+
+/* header ---------------------------------- */

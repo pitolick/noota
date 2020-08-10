@@ -15,9 +15,13 @@
 					<?php if (is_front_page() || is_home() || is_front_page() && is_home()) {
 							echo '<h1>';
 					} ?>
-					<a href="<?php echo esc_url(home_url('/')); ?>"
-						title="<?php echo esc_html(get_bloginfo('name')); ?>"
-						rel="home"><?php echo esc_html(get_bloginfo('name')); ?></a>
+						<?php if(has_custom_logo()) : ?>
+							<?php the_custom_logo(); ?>
+						<?php else: ?>
+							<a href="<?php echo esc_url(home_url('/')); ?>"
+								title="<?php echo esc_html(get_bloginfo('name')); ?>"
+								rel="home"><?php echo esc_html(get_bloginfo('name')); ?></a>
+						<?php endif; ?>
 					<?php if (is_front_page() || is_home() || is_front_page() && is_home()) {
 							echo '</h1>';
 					} ?>
