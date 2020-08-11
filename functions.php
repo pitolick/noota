@@ -13,7 +13,10 @@ function noota_setup() {
 	// カスタムロゴ設定
 	add_theme_support( 'custom-logo' );
 	// カスタムメニュー有効化
-	register_nav_menus(array( 'main-menu' => esc_html('Main Menu') ));
+	register_nav_menus(array(
+		'main-menu' => esc_html('Main Menu'),
+		'footer-menu' => esc_html('Footer Menu')
+	));
 }
 
 /**
