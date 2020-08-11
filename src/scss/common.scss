@@ -46,18 +46,24 @@ a {
 }
 
 #content {
+	padding: 0 32px;
 	grid-column: 2/3;
 	&:first-child {
 		grid-column: 1/3;
 	}
 }
 
-
 #sidebar {
 	grid-column: 3/4;
 }
 
 @include utilities.mq-down(xl) {
+	// レスポンシブ用非表示クラス
+	.mq-dn-xl {
+		display: none;
+	}
+
+	// Layout
 	#content {
 		&,&:first-child {
 			grid-column: 1/3;
@@ -66,18 +72,44 @@ a {
 }
 
 @include utilities.mq-down(lg) {
+	// レスポンシブ用非表示クラス
+	.mq-dn-lg {
+		display: none;
+	}
+
+	// Layout
 	#content {
+		padding: 0;
 		&,&:first-child {
 			grid-column: 1/4;
 		}
 	}
 
 	#sidebar {
+		margin-top: 50px;
+		grid-column: 1/4;
+	}
+}
+
+@include utilities.mq-down(md) {
+	// レスポンシブ用非表示クラス
+	.mq-dn-md {
 		display: none;
+	}
+
+	// Layout
+	#container {
+		display: block;
 	}
 }
 
 @include utilities.mq-down(sm) {
+	// レスポンシブ用非表示クラス
+	.mq-dn-sm {
+		display: none;
+	}
+
+	// Layout
 	#container {
 		display: block;
 	}
