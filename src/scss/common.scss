@@ -13,9 +13,11 @@ body {
 	font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
 	font-size: 1.4rem;
 	color: #333;
+	line-height: 1.5;
 }
 
 a {
+	color: variables.$site-color;
 	text-decoration: none;
 	transition: all .2s;
 	&:hover {
@@ -327,7 +329,118 @@ a {
 
 
 /* sidebar ---------------------------------- */
-
+#sidebar {
+	.widget-wrap {
+		.widget-container {
+			&:not(:first-of-type) {
+				margin-top: 40px;
+			}
+			.widget-title {
+				font-size: 1.6rem;
+				font-weight: bold;
+				margin-bottom: 20px;
+			}
+			// カレンダー
+			&.widget_calendar {
+				#wp-calendar {
+					width: 100%;
+					text-align: center;
+					caption {
+						font-size: 1.2rem;
+						font-weight: bold;
+						padding: 5px 0 3px 0;
+						text-transform: uppercase;
+					}
+					th {
+						background-color: #f4f4f4;
+						border-top: 1px solid #f2f2f2;
+						border-bottom: 1px solid #f2f2f2;
+						font-weight: bold;
+						padding: 5px 2px;
+					}
+					td {
+						color: #787c7b;
+						background-color: #fff;
+						border-top: 1px solid #f2f2f2;
+						border-bottom: 1px solid #f2f2f2;
+						padding: 4px;
+					}
+				}
+				.wp-calendar-nav {
+					background-color: #f4f4f4;
+					border-bottom: 1px solid #f2f2f2;
+					padding: 5px;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					a {
+						color: #222;
+						&:hover {
+							color: #222;
+						}
+					}
+				}
+			}
+			// ナビゲーションメニュー、アーカイブ、カテゴリー、メタ情報、固定ページ、最近の投稿
+			&.widget_nav_menu,
+			&.widget_archive,
+			&.widget_categories,
+			&.widget_meta,
+			&.widget_pages,
+			&.widget_recent_entries {
+				.menu, > ul {
+					border-bottom: 1px solid #f2f2f2;
+					.menu-item, > li {
+						border-top: 1px solid #f2f2f2;
+						a {
+							display: block;
+							font-size: 1.4rem;
+							color: #555;
+							padding: 12px 5px;
+							&:hover {
+								background-color: #eee;
+								text-decoration: none;
+							}
+						}
+						.sub-menu, > ul {
+							a {
+								padding-left: 10px;
+								&::before {
+									content: "\f054";
+									font-family: "Font Awesome 5 Free";
+									font-size: 1rem;
+									font-weight: 900;
+									margin-right: 5px;
+								}
+							}
+						}
+					}
+				}
+			}
+			// 最近のコメント
+			&.widget_recent_comments {
+				#recentcomments {
+					border-bottom: 1px solid #f2f2f2;
+					.recentcomments {
+						padding: 12px 5px;
+						border-top: 1px solid #f2f2f2;
+					}
+				}
+			}
+			// プラグイン - Recent Posts With Thumbnails
+			&.recent-posts-widget-with-thumbnails {
+				ul {
+					li {
+						.rpwwt-post-title {
+							font-size: 1.4rem;
+							font-weight: bold;
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 
 /* -------------------------------------------------------------------------- */
