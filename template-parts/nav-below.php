@@ -1,5 +1,5 @@
 <?php $args = array(
-	'prev_text' => sprintf(esc_html('%s older'), '<span class="meta-nav">&larr;</span>'),
-	'next_text' => sprintf(esc_html('newer %s'), '<span class="meta-nav">&rarr;</span>')
+	'prev_text' => sprintf(esc_html('%s'), '<i class="fas fa-chevron-left"></i>'),
+	'next_text' => sprintf(esc_html('%s'), '<i class="fas fa-chevron-right"></i>')
 );
-the_posts_navigation($args);
+the_posts_pagination($args);
