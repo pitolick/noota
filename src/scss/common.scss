@@ -597,6 +597,19 @@ body {
 }
 
 // entry-content
+.entry-footer {
+	margin-top: 60px;
+	padding-top: 20px;
+	border-top: 1px solid #e6e6e6;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	.sns {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
 
 // タイトル
 .entry-title {
@@ -647,21 +660,6 @@ h2.entry-title {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		// 投稿ユーザー
-		.author {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-right: 20px;
-			.avatar {
-				width: auto;
-				height: auto;
-				max-width: 32px;
-				max-height: 32px;
-				border-radius: 999px;
-				margin-right: 10px;
-			}
-		}
 		// カテゴリー・タグ
 		.entry-cat {
 			* {
@@ -676,16 +674,30 @@ h2.entry-title {
 	}
 }
 
+// 投稿ユーザー
+.entry-user {
+	.author {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-right: 20px;
+		.avatar {
+			width: auto;
+			height: auto;
+			max-width: 32px;
+			max-height: 32px;
+			border-radius: 999px;
+			margin-right: 10px;
+		}
+	}
+}
+
 @include utilities.mq-down(lg) {
 	.entry-meta {
 		display: block;
 		.entry-meta-start,
 		.entry-date {
 			display: block;
-			.author {
-				justify-content: flex-start;
-				margin-bottom: 5px;
-			}
 			.entry-cat {
 				display: block;
 				margin-bottom: 5px;
@@ -717,29 +729,72 @@ h2.entry-title {
 		.nav-links {
 			width: 100%;
 			justify-content: space-between;
+			margin-top: 40px;
 		}
 	}
 	.nav-links {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-	}
-	.prev,.next {
-		width: 40px;
-		height: 40px;
-		margin: 0 10px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		border: 1px solid #e6e6e6;
-		border-radius: 999px;
-		&:hover {
-			color: #fff;
-			background-color: variables.$site-color;
-			text-decoration: none;
+		.prev,.next,.meta-nav {
+			padding: 11px 14px;
+			margin: 0 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border: 1px solid #e6e6e6;
+			border-radius: 999px;
+			&:hover {
+				color: #fff;
+				background-color: variables.$site-color;
+				text-decoration: none;
+			}
+		}
+		.page-numbers {
+			margin: 0 5px;
+		}
+		.nav-previous,.nav-next {
+			a {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				max-width: 400px;
+				&:hover {
+					.meta-nav {
+						color: #fff;
+						background-color: variables.$site-color;
+						text-decoration: none;
+					}
+				}
+			}
 		}
 	}
-	.page-numbers {
-		margin: 0 5px;
+}
+
+// SNS
+.sns {
+	.sns-icon {
+		font-size: 1.8rem;
+		width: 32px;
+		height: 32px;
+		color: #fff;
+		margin: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #AAB8C2;
+		border-radius: 999px;
+		&:hover {
+			text-decoration: none;
+			&.twitter {
+				background-color: #1da1f2;
+			}
+			&.facebook {
+				background-color: #1877f2;
+			}
+			&.line {
+				background-color: #00b900;
+			}
+		}
 	}
 }

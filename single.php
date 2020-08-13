@@ -1,4 +1,7 @@
 <?php get_header(); ?>
+<div id="sns" class="mq-dn-xl">
+	<?php get_template_part('template-parts/entry-sns'); ?>
+</div>
 <main id="content">
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 	<?php get_template_part('template-parts/entry'); ?>
