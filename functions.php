@@ -10,6 +10,8 @@ function noota_setup() {
 	add_theme_support('automatic-feed-links');
 	// アイキャッチ画像設定
 	add_theme_support('post-thumbnails');
+	// 検索フォーム設定
+	add_theme_support( 'html5', array( 'search-form' ) );
 	// カスタムロゴ設定
 	add_theme_support( 'custom-logo' );
 	// カスタムメニュー有効化
