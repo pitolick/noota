@@ -753,6 +753,9 @@ form {
 	.entry-thumbnail {
 		margin-top: -30px;
 	}
+	& > :not(.entry-thumbnail):first-child {
+		margin-top: 0;
+	}
 	h1,h2,h3,h4,h5,h6 {
 		font-weight: bold;
 		line-height: 1.5;
