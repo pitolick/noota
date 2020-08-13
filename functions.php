@@ -88,6 +88,52 @@ function noota_widgets_init()
 }
 
 /**
+ * ピンバックタグ設定
+ */
+add_action( 'wp_head', 'pingback_header' );
+	function pingback_header() {
+	if ( is_singular() && pings_open() ) {
+		printf( '<link rel="pingback" href="%s" />' . "\n", esc_url( get_bloginfo( 'pingback_url' ) ) );
+	}
+}
+
+/**
+ * コメント返信用js設定
+ */
+add_action( 'comment_form_before', 'enqueue_comment_reply_script' );
+	function enqueue_comment_reply_script() {
+	if ( get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
+}
+
+/**
+ * トラックバック・ピンバックDOM設定
+ * comments.php内wp_list_comments()のコールバックとして使用
+ */
+function custom_pings( $comment ) {
+	?>
+	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>"><?php echo comment_author_link(); ?></li>
+	<?php
+}
+
+/**
+ * コメント数カウント設定
+ * wp_list_comments()からトラックバック・ピンバックのカウントを除外
+ */
+add_filter( 'get_comments_number', 'comment_count', 0 );
+function comment_count( $count ) {
+	if ( ! is_admin() ) {
+		global $id;
+		$get_comments = get_comments( 'status=approve&post_id=' . $id );
+		$comments_by_type = separate_comments( $get_comments );
+		return count( $comments_by_type['comment'] );
+	} else {
+		return $count;
+	}
+}
+
+/**
  * 記事内最初の画像を取得
  * $get_size: 取得する画像のサイズ
  * $altimg_id: 代替画像のID。（画像はあらかじめメディアライブラリからアップロードしておく）
