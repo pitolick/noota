@@ -140,6 +140,7 @@ function comment_count( $count ) {
  * $get_size: 取得する画像のサイズ
  * $altimg_id: 代替画像のID。（画像はあらかじめメディアライブラリからアップロードしておく）
  *             nullの場合、投稿内に画像が無ければ何も出力しない
+ * 参考：https://qiita.com/ryujisanagi/items/96d5d67bb9fc4cf8315a
  */
 function catch_thumbnail_image($get_size = 'thumbnail', $altimg_id = null) {
 	global $post;
@@ -186,3 +187,114 @@ add_shortcode('bloginfo', function($atts) {
 
 	return in_array($atts['info'], $infos, true) ? get_bloginfo($atts['info'], $filter) : '';
 });
+
+/**
+ * 目次を追加
+ * add_filter('the_content', 'add_index');
+ * 上記を追加することでthe_content()内に自動追加
+ * 参考：https://u-web-nana.com/function-table-of-contents/
+ */
+/* 目次に合わせて見出しにID付与 */
+function generate_index($content) {
+	// 目次用コンテンツを生成
+	if (is_single()) {
+		$elements = search_index($content);
+
+		// 1つ以上該当の要素があったら
+		if (count($elements) >= 1) {
+			// 初期化
+			$toc = '';
+			$i = 0;
+			$currentlevel = 0;
+			$id = 'chapter-';
+
+			foreach ($elements as $element) {
+				// 順番に応じてid属性を付与
+				$id .= $i + 1;
+				$replace_title = preg_replace('/<(h[1-6])>(.+?)<\/(h[1-6])>/s', '<$1 id="' . $id . '">$2</$3>', $element[0]);
+				$content = str_replace($element[0], $replace_title, $content);
+				$i++;
+				$id = 'chapter-';
+			} // end foreach
+
+			$h2 = '/<h2.*?>/i';
+			if (preg_match($h2, $content, $h2s)) {
+				$content = preg_replace($h2, $h2s[0], $content, 1);
+			}
+		}
+	}
+	return $content;
+}
+/* 見出しの数検索 */
+function search_index($content){
+	if (is_single()) {
+		// 正規表現で属性を持たないh1～h6を検索
+		$pattern = '/<h[1-6]>(.+?)<\/h[1-6]>/s';
+		preg_match_all($pattern, $content, $elements, PREG_SET_ORDER);
+	}
+	return $elements;
+}
+add_filter('the_content', 'generate_index');
+/* 目次DOM生成 */
+function add_index($content = ''){
+	if (is_single()) {
+		if(!$content){$content = get_the_content();}
+		// id付与済みのcontentを取得
+		$elements = search_index($content);
+
+		// 1つ以上該当の要素があったら
+		if (count($elements) >= 1) {
+			// 初期化
+			$toc = '';
+			$i = 0;
+			$currentlevel = 0;
+			$id = 'chapter-';
+
+			foreach ($elements as $element) {
+				$id .= $i + 1;
+				// ネストを計算
+				if (strpos($element[0], '<h2') !== false) {
+					$level = 1;
+				} elseif (strpos($element[0], '<h3') !== false) {
+					$level = 2;
+				} elseif (strpos($element[0], '<h4') !== false) {
+					$level = 3;
+				} elseif (strpos($element[0], '<h5') !== false) {
+					$level = 4;
+				} elseif (strpos($element[0], '<h6') !== false) {
+					$level = 5;
+				}
+
+				// ネスト用に要素を追加
+				while ($currentlevel < $level) {
+					if ($currentlevel === 0) {
+						$toc .= '<ul class="index-list">';
+					} else {
+						$toc .= '<ul class="index-list_child">';
+					}
+					$currentlevel++;
+				}
+				while ($currentlevel > $level) {
+					$toc .= '</li></ul>';
+					$currentlevel--;
+				}
+
+				// 目次の項目で使用する要素を指定
+				$toc .= '<li class="index-item"><a href="#' . $id . '" class="index-link">' . $element[1] . '</a>';
+				$i++;
+				$id = 'chapter-';
+			} // end foreach
+
+			// 目次の最後の項目をどの要素から作成したかによりタグの閉じ方を変更
+			while ($currentlevel > 0) {
+				$toc .= '</li></ul>';
+				$currentlevel--;
+			}
+
+			// 目次出力用に最終整形
+			$index = '<div class="single-index index">' . $toc . '</div>';
+		}
+	}
+	return $index;
+}
+add_shortcode( 'add_index', 'add_index' );

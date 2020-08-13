@@ -6,4 +6,8 @@
 		</ul>
 	</div>
 	<?php endif; ?>
+	<div class="sidebar_index mq-dn-lg">
+		<h3 class="index-title">目次</h3>
+		<?php echo add_index();?>
+	</div>
 </aside>
