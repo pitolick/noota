@@ -7,7 +7,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class((is_front_page() || is_home() || is_front_page() && is_home() || is_archive() || is_search() ? 'type-summary' : 'type-content')); ?>>
+<body <?php body_class((is_home() || is_front_page() && is_home() || is_archive() || is_search() ? 'type-summary' : 'type-content')); ?>>
 	<div id="wrapper" class="hfeed">
 		<header id="header">
 			<div class="header-wrap container">

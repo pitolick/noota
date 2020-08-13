@@ -695,6 +695,11 @@ form {
 .entry-content,.comment-body {
 	font-size: 1.6rem;
 	padding-top: 30px;
+	&::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
 	.entry-thumbnail {
 		margin-top: -30px;
 	}
