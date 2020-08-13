@@ -28,8 +28,7 @@
 						} ?>
 					</div>
 				</div>
-				<!-- <div id="search"><?php get_search_form(); ?>
-				</div> -->
+				<div id="search"><?php get_search_form(); ?></div>
 				<input id="nav-input" type="checkbox" class="nav-unshown">
 				<label id="nav-open" for="nav-input" class="nav-unshown"><i class="fas fa-bars fa-lg"></i></label>
 				<label class="nav-unshown" id="nav-close" for="nav-input"></label>

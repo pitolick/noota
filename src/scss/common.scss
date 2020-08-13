@@ -548,6 +548,92 @@ body {
 	font-size: 1.6rem;
 }
 
+/* form ---------------------------------- */
+form {
+	input,select,textarea,button {
+		-webkit-appearance: textfield;
+		// border-style: none;
+	}
+	input {
+		&, &[type="text"],
+		&[type="password"],
+		&[type="search"] {
+			font-size: 1.4rem;
+			display: inline-block;
+			min-height: 40px;
+			padding: 4px 8px;
+			vertical-align: top;
+			line-height: 1.5;
+			border: 1px solid #e6e6e6;
+			border-radius: 4px;
+			outline: none;
+			&:focus {
+				border-color: #a8abb1;
+			}
+		}
+		&[type="date"],
+		&[type="datetime-local"],
+		&[type="month"],
+		&[type="week"],
+		&[type="time"] {
+			font-size: 100%;
+		}
+		&[type="color"],
+		&[type="range"] {
+			cursor: pointer;
+		}
+		&[type="radio"],
+		&[type="checkbox"] {
+			cursor: pointer;
+		}
+		&[type="button"],
+		&[type="submit"],
+		&[type="reset"],
+		&[type="file"] {
+			cursor: pointer;
+			border-radius: 4px;
+			&:hover {
+				border-color: #a8abb1;
+			}
+		}
+	}
+	button {
+		font-size: 1.4rem;
+		display: inline-block;
+		min-height: 40px;
+		padding: 4px 8px;
+		vertical-align: top;
+		line-height: 1.5;
+		border: 1px solid #e6e6e6;
+		border-radius: 4px;
+		outline: none;
+		cursor: pointer;
+		&:focus {
+			border-color: #a8abb1;
+		}
+		&:hover {
+			border-color: #a8abb1;
+		}
+	}
+	select,textarea {
+		font-size: 1.4rem;
+		display: inline-block;
+		min-height: 40px;
+		padding: 4px 8px;
+		vertical-align: top;
+		line-height: 1.5;
+		border: 1px solid #e6e6e6;
+		border-radius: 4px;
+		outline: none;
+		&:focus {
+			border-color: #a8abb1;
+		}
+	}
+	textarea {
+		font-size: 100%;
+	}
+}
+
 /* entry ---------------------------------- */
 // entry-summary
 .entry-summary {
@@ -1094,3 +1180,6 @@ h2.entry-title {
 		}
 	}
 }
+
+// コメント
+#comments {}
