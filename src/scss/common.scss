@@ -603,6 +603,11 @@ body {
 	&,a {
 		color: #222;
 		font-weight: bold;
+		word-wrap: break-word;
+		i {
+			color: #787c7b;
+			margin-right: 10px;
+		}
 	}
 }
 

@@ -2,7 +2,7 @@
 <main id="content">
 	<?php if (have_posts()) : ?>
 	<header class="header">
-		<h1 class="entry-title"><?php printf(esc_html('Search Results for: %s'), get_search_query()); ?>
+		<h1 class="entry-title"><i class="fas fa-search"></i><?php printf(esc_html('検索キーワード: %s'), get_search_query()); ?>
 		</h1>
 	</header>
 	<?php while (have_posts()) : the_post(); ?>
