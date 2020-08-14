@@ -61,6 +61,7 @@ function noota_load_scripts()
 	wp_enqueue_style('noota-style', get_stylesheet_uri());
 	wp_enqueue_style('noota-common', get_template_directory_uri().'/css/common.css');
 	wp_enqueue_script('jquery');
+	wp_enqueue_script('bundle', get_stylesheet_directory_uri() . '/js/bundle.js', array('jquery'));
 }
 
 /**
@@ -211,7 +212,7 @@ function generate_index($content) {
 			foreach ($elements as $element) {
 				// 順番に応じてid属性を付与
 				$id .= $i + 1;
-				$replace_title = preg_replace('/<(h[1-6])>(.+?)<\/(h[1-6])>/s', '<$1 id="' . $id . '">$2</$3>', $element[0]);
+				$replace_title = preg_replace('/<(h[1-6])>(.+?)<\/(h[1-6])>/s', '<$1 id="' . $id . '" class="js-index-heading">$2</$3>', $element[0]);
 				$content = str_replace($element[0], $replace_title, $content);
 				$i++;
 				$id = 'chapter-';
@@ -281,7 +282,7 @@ function add_index($content = ''){
 				}
 
 				// 目次の項目で使用する要素を指定
-				$toc .= '<li class="index-item"><a href="#' . $id . '" class="index-link">' . $element[1] . '</a>';
+				$toc .= '<li class="index-item"><a href="#' . $id . '" class="index-link js-index">' . $element[1] . '</a>';
 				$i++;
 				$id = 'chapter-';
 			} // end foreach
