@@ -575,6 +575,11 @@ body {
 			padding-bottom: 10px;
 		}
 	}
+	// サイトバー用スティッキー
+	.sidebar_sticky {
+		position: sticky;
+		top: 10px;
+	}
 }
 
 

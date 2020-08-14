@@ -226,8 +226,9 @@ function generate_index($content) {
 	return $content;
 }
 /* 見出しの数検索 */
-function search_index($content){
+function search_index($content = ''){
 	if (is_single()) {
+		if(!$content){$content = get_the_content();}
 		// 正規表現で属性を持たないh1～h6を検索
 		$pattern = '/<h[1-6]>(.+?)<\/h[1-6]>/s';
 		preg_match_all($pattern, $content, $elements, PREG_SET_ORDER);
