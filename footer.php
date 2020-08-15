@@ -12,7 +12,6 @@
 </footer>
 </div>
 <?php wp_footer(); ?>
-<script src="https://kit.fontawesome.com/b49a02f619.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
