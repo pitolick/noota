@@ -5,10 +5,10 @@
 			<div class="entry-thumbnail">
 				<?php the_post_thumbnail(); ?>
 			</div>
-		<?php elseif(catch_thumbnail_image($catch_thumbnail_size)): ?>
+		<?php elseif(catch_thumbnail_image()): ?>
 			<?php // アイキャッチが設定されていないとき記事内の画像を設定 ?>
 			<div class="entry-thumbnail">
-				<?php echo catch_thumbnail_image($catch_thumbnail_size); ?>
+				<?php echo catch_thumbnail_image(); ?>
 			</div>
 		<?php else: ?>
 			<?php // 記事内の画像すらないときはデフォルトのNo Imageを設定 ?>

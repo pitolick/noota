@@ -143,11 +143,14 @@ function comment_count( $count ) {
  *             nullの場合、投稿内に画像が無ければ何も出力しない
  * 参考：https://qiita.com/ryujisanagi/items/96d5d67bb9fc4cf8315a
  */
-function catch_thumbnail_image($get_size = 'thumbnail', $altimg_id = null) {
+function catch_thumbnail_image($get_size = 'full', $altimg_id = null) {
 	global $post;
 	$image = '';
+	$image_id = '';
 	$image_get = preg_match_all( '/<img.+class=[\'"].*wp-image-([0-9]+).*[\'"].*>/i', $post->post_content, $matches );
-	$image_id = $matches[1][0];
+	if( isset($matches[1][0]) ) {
+		$image_id = $matches[1][0];
+	}
 	if( !$image_id && $altimg_id ){
 			$image_id = $altimg_id;
 	}
@@ -228,6 +231,7 @@ function generate_index($content) {
 }
 /* 見出しの数検索 */
 function search_index($content = ''){
+	$elements = false;
 	if (is_single()) {
 		if(!$content){$content = get_the_content();}
 		// 正規表現で属性を持たないh1～h6を検索
