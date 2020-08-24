@@ -137,6 +137,47 @@ function comment_count( $count ) {
 }
 
 /**
+ * 管理画面に設定項目追加
+ */
+function add_my_option_field() {
+  add_settings_field( 'search_disable', '検索機能', 'display_my_option', 'discussion' );
+  register_setting( 'discussion', 'search_disable' );
+}
+add_filter( 'admin_init', 'add_my_option_field' );
+/* 管理画面設定項目DOM */
+function display_my_option() {
+	// 検索機能無効化
+  $test_option = get_option( 'search_disable' );
+  ?>
+	<fieldset>
+  	<p class="description">検索フォームの機能を以下のパターンから選択できます。</p>
+		<label><input name="search_disable" type="radio" value="enable" <?php checked( 'enable', get_option( 'search_disable' ) ); ?> />検索機能を有効にする</label><br>
+		<label><input name="search_disable" type="radio" value="disable" <?php checked( 'disable', get_option( 'search_disable' ) ); ?> />検索機能を無効にする</label><br>
+		<label><input name="search_disable" type="radio" value="shifter_algolia" <?php checked( 'shifter_algolia', get_option( 'search_disable' ) ); ?> />ShifterWordPressとAlgoliaを併用する</label>
+	</fieldset>
+  <?php
+}
+
+/**
+ * 検索機能を無効化
+ * 参考：https://www.lancork.net/2015/04/how-to-disable-wordpress-search-function/
+ */
+function fb_filter_query( $query, $error = true ) {
+	if ( is_search() && get_option( 'search_disable' ) === 'disable' ) {
+			$query->is_search = false;
+			$query->query_vars['s'] = false;
+			$query->query['s'] = false;
+			// to error
+			if ( $error == true ) {
+				$query->is_404 = true;
+			}
+	}
+}
+
+add_action( 'parse_query', 'fb_filter_query' );
+add_filter( 'get_search_form', function($a){return null;} );
+
+/**
  * 記事内最初の画像を取得
  * $get_size: 取得する画像のサイズ
  * $altimg_id: 代替画像のID。（画像はあらかじめメディアライブラリからアップロードしておく）

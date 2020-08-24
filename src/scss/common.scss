@@ -695,15 +695,21 @@ form {
 			padding-right: 40px;
 		}
 		.search-submit {
+			font-size: 1.4rem;
+			line-height: 1.5;
 			width: 38px;
 			height: 38px;
 			min-height: auto;
 			color: #a8abb1;
+			padding: 4px 8px;
 			background-color: #fff;
 			border: none;
 			position: absolute;
 			top: 1px;
 			right: 1px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 }
