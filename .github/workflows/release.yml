@@ -45,7 +45,7 @@ jobs:
     - name: create archive
       env:
         PACKAGE_NAME: "noota"
-        FILES_TO_ARCIVE: "*.php *.md *.css *.txt *.png LICENSE phpcs.xml.dist inc/ js/ languages/ layouts/ template-parts/"
+        FILES_TO_ARCIVE: "*.php *.md *.css *.txt *.png *.jpg LICENSE phpcs.xml.dist inc/ js/ languages/ layouts/ template-parts/ img/ css/"
       run: zip -r ${PACKAGE_NAME}.zip ${FILES_TO_ARCIVE}
 
     # upload zip arvive by ghr.
