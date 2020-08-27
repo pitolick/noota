@@ -38,9 +38,11 @@
 					<div id="search-menu">
 						<?php get_search_form(); ?>
 					</div>
-					<?php wp_nav_menu(array(
-						'theme_location' => 'main-menu',
-						'container_id'    => 'main-menu', )); ?>
+					<?php if ( has_nav_menu('main-menu') ) {
+										wp_nav_menu(array(
+										'theme_location' => 'main-menu',
+										'container_id'    => 'main-menu', ));
+								} ?>
 				</nav>
 			</div>
 		</header>
