@@ -138,22 +138,46 @@ function comment_count( $count ) {
 
 /**
  * 管理画面に設定項目追加
+ * 参考：https://www.nxworld.net/wordpress/wp-add-settings-field.html
  */
-function add_my_option_field() {
-  add_settings_field( 'search_disable', '検索機能', 'display_my_option', 'discussion' );
-  register_setting( 'discussion', 'search_disable' );
-}
-add_filter( 'admin_init', 'add_my_option_field' );
-/* 管理画面設定項目DOM */
-function display_my_option() {
+function search_field() {
 	// 検索機能無効化
-  $test_option = get_option( 'search_disable' );
+  add_settings_field( 'search_disable', '検索機能', 'search_option', 'discussion' );
+	register_setting( 'discussion', 'search_disable' );
+}
+add_filter( 'admin_init', 'search_field' );
+/* 管理画面設定項目DOM */
+function search_option() {
+	// 検索機能無効化
   ?>
 	<fieldset>
   	<p class="description">検索フォームの機能を以下のパターンから選択できます。</p>
 		<label><input name="search_disable" type="radio" value="enable" <?php checked( 'enable', get_option( 'search_disable' ) ); ?> />検索機能を有効にする</label><br>
 		<label><input name="search_disable" type="radio" value="disable" <?php checked( 'disable', get_option( 'search_disable' ) ); ?> />検索機能を無効にする</label><br>
 		<label><input name="search_disable" type="radio" value="shifter_algolia" <?php checked( 'shifter_algolia', get_option( 'search_disable' ) ); ?> />ShifterWordPressとAlgoliaを併用する</label>
+	</fieldset>
+  <?php
+}
+
+/* SNSシェアボタン設定 */
+function share_field() {
+  add_settings_field( 'share_option', 'SNSシェアボタン設定', 'share_options', 'discussion' );
+  register_setting( 'discussion', 'twitter_via' );
+  register_setting( 'discussion', 'twitter_related' );
+  register_setting( 'discussion', 'twitter_hashtags' );
+}
+add_filter( 'admin_init', 'share_field' );
+function share_options() {
+	// Twitterシェアボタン設定
+  ?>
+	<fieldset>
+		<p class="description">【Twitterシェアボタン】</p>
+		<p class="description">ツイート内に含むユーザ名</p>
+		@<input name="twitter_via" id="twitter_via" type="text" value="<?php echo esc_html( get_option( 'twitter_via' ) ); ?>" maxlength="15" class="regular-text" />
+		<p class="description">ツイート後に表示されるユーザー</p>
+		@<input name="twitter_related" id="twitter_related" type="text" value="<?php echo esc_html( get_option( 'twitter_related' ) ); ?>" maxlength="15" class="regular-text" />
+		<p class="description">ハッシュタグ</p>
+		#<input name="twitter_hashtags" id="twitter_hashtags" type="text" value="<?php echo esc_html( get_option( 'twitter_hashtags' ) ); ?>" maxlength="100" class="regular-text" />
 	</fieldset>
   <?php
 }
