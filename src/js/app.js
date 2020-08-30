@@ -1,6 +1,21 @@
 var $ = require('jQuery');
 
 /**
+ * アンカーリンクへスムーズスクロール
+ * 参考：https://techacademy.jp/magazine/9532
+ */
+$(function(){
+  $('a[href^="#"]').click(function(){
+    var speed = 300;
+    var href= $(this).attr("href");
+    var target = $(href == "#" || href == "" ? 'html' : href);
+    var position = target.offset().top;
+    $("html, body").animate({scrollTop:position}, speed, "swing");
+    return false;
+  });
+});
+
+/**
  * 目次フォーカス機能
  */
 $(function() {
