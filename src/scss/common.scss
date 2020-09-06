@@ -1389,3 +1389,46 @@ h2.entry-title {
 		}
 	}
 }
+
+/* -------------------------------------------------------------------------- */
+/*	プラグイン
+/* -------------------------------------------------------------------------- */
+
+/* YARPP */
+.yarpp-related {
+	.yarpp-article {
+		display: grid;
+		grid-template-rows: max-content;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-row-gap: 40px;
+		grid-column-gap: 5px;
+	}
+	.yarpp-title {
+		margin-top: 60px;
+		grid-column: 1/5;
+		margin-bottom: 0;
+	}
+	.entry-thumbnail {
+		margin-top: 20px;
+		img {
+			margin: 0;
+		}
+	}
+	.entry-title {
+		font-size: 2rem;
+		margin: 0;
+		padding: 0;
+		border: none;
+	}
+}
+
+@include utilities.mq-down(md) {
+	.yarpp-related {
+		.yarpp-article {
+			grid-template-columns: 1fr 1fr;
+		}
+		.yarpp-title {
+			grid-column: 1/3;
+		}
+	}
+}
