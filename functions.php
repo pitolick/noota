@@ -237,6 +237,7 @@ function catch_thumbnail_image($get_size = 'full', $altimg_id = null) {
  * Author: Giuseppe Mazzapica
  * Author URI: http://gm.zoomlab.it
  * License: MIT
+ * 使い方：[bloginfo info='name']
  */
 add_shortcode('bloginfo', function($atts) {
 

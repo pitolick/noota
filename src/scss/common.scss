@@ -731,7 +731,7 @@ form {
 		}
 	}
 	.entry-thumbnail {
-		margin-bottom: 0;
+		margin-bottom: 10px;
 		img {
 			height: auto;
 			max-height: 160px;
@@ -917,13 +917,13 @@ form {
 	}
 	pre {
 		display: block;
-		padding: 0;
+		padding: 1em;
 		margin: 0;
 		font-size: inherit;
 		font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
 		line-height: inherit;
 		color: inherit;
-		background-color: transparent;
+		background-color: #eee;
 		border: none;
 		border-radius: 0;
 		line-height: 1.8;
@@ -1272,6 +1272,10 @@ h2.entry-title {
 }
 
 // SNS
+#sns .sns {
+	position: sticky;
+	top: 10px;
+}
 .sns {
 	.sns-icon {
 		font-size: 1.8rem;
