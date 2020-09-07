@@ -159,19 +159,19 @@ function search_option() {
   <?php
 }
 
-/* SNSシェアボタン設定 */
+/* SNS設定 */
 function share_field() {
-  add_settings_field( 'share_option', 'SNSシェアボタン設定', 'share_options', 'discussion' );
+  add_settings_field( 'share_option', 'SNS設定', 'share_options', 'discussion' );
   register_setting( 'discussion', 'twitter_via' );
   register_setting( 'discussion', 'twitter_related' );
   register_setting( 'discussion', 'twitter_hashtags' );
 }
 add_filter( 'admin_init', 'share_field' );
 function share_options() {
-	// Twitterシェアボタン設定
+	// Twitter設定
   ?>
 	<fieldset>
-		<p class="description">【Twitterシェアボタン】</p>
+		<p class="description">【Twitter】</p>
 		<p class="description">ツイート内に含むユーザ名</p>
 		@<input name="twitter_via" id="twitter_via" type="text" value="<?php echo esc_html( get_option( 'twitter_via' ) ); ?>" maxlength="15" class="regular-text" />
 		<p class="description">ツイート後に表示されるユーザー</p>
@@ -179,8 +179,83 @@ function share_options() {
 		<p class="description">ハッシュタグ</p>
 		#<input name="twitter_hashtags" id="twitter_hashtags" type="text" value="<?php echo esc_html( get_option( 'twitter_hashtags' ) ); ?>" maxlength="100" class="regular-text" />
 	</fieldset>
+	<fieldset>
+		<p class="description">【Facebook】</p>
+		<p class="description">Facebook APP ID</p>
+		<input name="facebook_app_id " id="facebook_app_id " type="text" value="<?php echo esc_html( get_option( 'facebook_app_id ' ) ); ?>" maxlength="20" class="regular-text" />
+	</fieldset>
   <?php
 }
+
+/**
+ * OGP設定
+ * 参考：https://www.torat.jp/wordpress-setting-ogp/
+ */
+function my_meta_ogp() {
+	if (is_front_page() || is_home() || is_singular()) {
+	/*初期設定*/
+
+	// 画像 （アイキャッチ画像が無い時に使用する代替画像URL）
+	$ogp_image = get_template_directory_uri() . "/img/no_image-lg.png";
+	// Twitterのアカウント名 (@xxx)
+	$twitter_site = '@'.esc_html( get_option( 'twitter_via' ) );
+	// Twitterカードの種類（summary_large_image または summary を指定）
+	$twitter_card = 'summary_large_image';
+	// Facebook APP ID
+	$facebook_app_id = '';
+
+	/*初期設定 ここまで*/
+
+	global $post;
+	$ogp_title = '';
+	$ogp_description = '';
+	$ogp_url = '';
+	$html = '';
+	if (is_singular()) {
+		// 記事＆固定ページ
+		setup_postdata($post);
+		$ogp_title = $post->post_title;
+		$ogp_description = mb_substr(get_the_excerpt(), 0, 100);
+		$ogp_url = get_permalink();
+		wp_reset_postdata();
+	} elseif (is_front_page() || is_home()) {
+		// トップページ
+		$ogp_title = get_bloginfo('name');
+		$ogp_description = get_bloginfo('description');
+		$ogp_url = home_url();
+	}
+
+	// og:type
+	$ogp_type = (is_front_page() || is_home()) ? 'website' : 'article';
+
+	// og:image
+	if (is_singular() && has_post_thumbnail()) {
+		$ps_thumb = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
+		$ogp_image = $ps_thumb[0];
+	}
+
+	// 出力するOGPタグをまとめる
+	$html = "\n";
+	$html .= '<meta property="og:title" content="' . esc_attr($ogp_title) . '">' . "\n";
+	$html .= '<meta property="og:description" content="' . esc_attr($ogp_description) . '">' . "\n";
+	$html .= '<meta property="og:type" content="' . $ogp_type . '">' . "\n";
+	$html .= '<meta property="og:url" content="' . esc_url($ogp_url) . '">' . "\n";
+	$html .= '<meta property="og:image" content="' . esc_url($ogp_image) . '">' . "\n";
+	$html .= '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '">' . "\n";
+	$html .= '<meta name="twitter:card" content="' . $twitter_card . '">' . "\n";
+	$html .= '<meta name="twitter:site" content="' . $twitter_site . '">' . "\n";
+	$html .= '<meta property="og:locale" content="ja_JP">' . "\n";
+
+	if ($facebook_app_id != "") {
+		$html .= '<meta property="fb:app_id" content="' . $facebook_app_id . '">' . "\n";
+	}
+
+	echo $html;
+	}
+}
+// headタグ内にOGPを出力する
+add_action('wp_head', 'my_meta_ogp');
+
 
 /**
  * 検索機能を無効化
