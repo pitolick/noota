@@ -375,8 +375,8 @@ function search_index($content = ''){
 	$elements = false;
 	if (is_single()) {
 		if(!$content){$content = get_the_content();}
-		// 正規表現で属性を持たないh1～h6を検索
-		$pattern = '/<h[1-6]>(.+?)<\/h[1-6]>/s';
+		// 正規表現でid属性を持たないh1～h6を検索
+		$pattern = '/<h[1-6](?!.*id=").*?>(.*?)<\/h[1-6]>/i';
 		preg_match_all($pattern, $content, $elements, PREG_SET_ORDER);
 	}
 	return $elements;
